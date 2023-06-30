@@ -13,9 +13,12 @@ namespace BaGet
         {
             app.Services.AddBaGetDbContextProvider<MySqlContext>("MySql", (provider, options) =>
             {
-                var databaseOptions = provider.GetRequiredService<IOptionsSnapshot<DatabaseOptions>>();
+                var databaseOptions = provider.GetRequiredService<IOptionsSnapshot<DatabaseOptions>>().Value;
 
-                options.UseMySql(databaseOptions.Value.ConnectionString);
+                //options.UseMySql(databaseOptions.ConnectionString);
+
+                // options.UseMySql(databaseOptions.ConnectionString, new MySqlServerVersion("8.0"));
+                options.UseMySql(databaseOptions.ConnectionString, new MariaDbServerVersion("10.6"));
             });
 
             return app;

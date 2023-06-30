@@ -17,6 +17,8 @@ namespace BaGet.Database.MySql
 
         public override bool IsUniqueConstraintViolationException(DbUpdateException exception)
         {
+
+
             return exception.InnerException is MySqlException mysqlException &&
                    mysqlException.Number == UniqueConstraintViolationErrorCode;
         }
